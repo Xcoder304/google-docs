@@ -21,7 +21,7 @@ function Header() {
   };
 
   return (
-    <header className="py-3 px-4 shadow-md bg-white flex items-center justify-between">
+    <header className="py-3 px-4 shadow-md bg-white flex items-center justify-between sticky top-0 left-0 z-30">
       <div className="flex items-center space-x-3">
         <IconButton size="large">
           <Menu className="text-2xl" />
