@@ -21,8 +21,8 @@ function Header() {
   };
 
   return (
-    <header className="py-3 px-4 shadow-md bg-white flex items-center justify-between sticky top-0 left-0 z-30">
-      <div className="flex items-center space-x-3">
+    <header className="py-3 px-2 lg:px-4 shadow-md bg-white flex items-center justify-between sticky top-0 left-0 z-30">
+      <div className="flex items-center space-x-1 md:space-x-3 lg:space-x-3">
         <IconButton size="large">
           <Menu className="text-2xl" />
         </IconButton>
@@ -34,14 +34,14 @@ function Header() {
             className="h-10 w-10 "
           />
 
-          <h3 className="text-[22px] text-googleTxt_light font-medium capitalize ">
+          <h3 className="text-[22px] hidden md:inline-flex lg:inline-flex text-googleTxt_light font-medium capitalize ">
             docs
           </h3>
         </div>
       </div>
 
-      <div className="w-[55%]">
-        <div className="w-full pl-1 pr-3 flex items-center space-x-2 bg-gray-100 rounded-md focus-within:bg-white focus-within:shadow-md transition-all duration-200 ease-out">
+      <div className="w-[40%] md:w-[55%] lg:w-[55%]">
+        <div className="w-full pl-0 md:pl-1 pr-3 flex items-center space-x-0  md:space-x-2 lg:space-x-2 bg-gray-100 rounded-md focus-within:bg-white focus-within:shadow-md transition-all duration-200 ease-out">
           <IconButton size="medium">
             <Search className="text-2xl text-gray-700" />
           </IconButton>
@@ -61,7 +61,6 @@ function Header() {
         <IconButton
           onClick={handleClick}
           size="small"
-          sx={{ ml: 2 }}
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}

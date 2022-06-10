@@ -7,7 +7,7 @@ import Document from "./Document";
 function Douments() {
   return (
     <section className="my-5 bg-white pb-3">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto px-3">
         {/*  */}
         <div className="w-full flex item-center justify-between">
           <span className="text-googleTxt_light_2 text-base capitalize font-medium select-none">

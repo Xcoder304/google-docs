@@ -16,7 +16,7 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "95%",
     bgcolor: "background.paper",
     boxShadow: 14,
     p: 4,

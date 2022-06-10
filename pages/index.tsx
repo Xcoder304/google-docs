@@ -6,10 +6,17 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Douments from "../components/Douments";
 import CreateDocModal from "../components/CreateDocModal";
+import { useSession } from "next-auth/react";
+import Login from "../components/Login";
 
 const Home: NextPage = () => {
   const [isModalopen, setisModalOpen] = useState<boolean>(false);
   const handleOpenModal = () => setisModalOpen(true);
+  const { data: session } = useSession();
+
+  // if (!session) return <Login />;
+
+  console.log("session", session);
 
   return (
     <div>
@@ -30,7 +37,7 @@ const Home: NextPage = () => {
 
       <div className="w-full bg-gray-100 py-4">
         {/* wapper */}
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto px-3">
           <div className="w-full flex item-center justify-between">
             <span className="text-googleTxt_light_2 text-base capitalize font-medium select-none">
               Start a new document
