@@ -4,7 +4,12 @@ import { IconButton } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-function Document() {
+interface Props {
+  time: string;
+  fileName: string;
+}
+
+function Document({ time, fileName }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,13 +28,13 @@ function Document() {
           className="w-8 h-8 object-contain"
         />
         <h4 className="text-lg text-googleTxt_light_2 font-semibold">
-          file name
+          {fileName}
         </h4>
       </div>
 
       <div className="flex items-center space-x-2">
         <span className="text-base text-gray-500 select-none italic">
-          {new Date().toDateString()}
+          {time}
         </span>
 
         <IconButton

@@ -9,6 +9,8 @@ import Divider from "@mui/material/Divider";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -19,6 +21,8 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { data: session } = useSession();
 
   return (
     <header className="py-3 px-2 lg:px-4 shadow-md bg-white flex items-center justify-between sticky top-0 left-0 z-30">
@@ -64,8 +68,14 @@ function Header() {
           aria-controls={open ? "account-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
+          className="ml-0 md:ml-2"
         >
-          <Avatar sx={{ width: 34, height: 34 }}>M</Avatar>
+          <Avatar
+            alt={session?.user?.name || "unknown"}
+            src={
+              session?.user?.image ? session.user.image : "/broken-image.jpg"
+            }
+          />
         </IconButton>
 
         <MenuComponet
@@ -78,25 +88,13 @@ function Header() {
             elevation: 0,
             sx: {
               overflow: "visible",
-              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
+              filter: "drop-shadow(0px 1px 2px rgba(0,0,0,0.32))",
+              mt: 2.3,
               "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
                 ml: -0.5,
                 mr: 1,
-              },
-              "&:before": {
-                content: '""',
-                display: "block",
-                position: "absolute",
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: "background.paper",
-                transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0,
               },
             },
           }}
@@ -104,10 +102,13 @@ function Header() {
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           <MenuItem>
-            <Avatar /> Profile
-          </MenuItem>
-          <MenuItem>
-            <Avatar /> My account
+            <Avatar
+              alt={session?.user?.name || "unknown"}
+              src={
+                session?.user?.image ? session.user.image : "/broken-image.jpg"
+              }
+            />{" "}
+            Profile
           </MenuItem>
           <Divider />
           <MenuItem>
@@ -122,7 +123,7 @@ function Header() {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => signOut()}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

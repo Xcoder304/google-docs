@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import Tooltip from "@mui/material/Tooltip";
 import Document from "./Document";
+import { useSession } from "next-auth/react";
+import { db } from "../firebase";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 function Douments() {
+  const { data: session } = useSession();
+  const [documents, setDocuments] = useState<any[]>([]);
+
+  useEffect(() => {
+    const userDocuments = collection(
+      db,
+      "UserDocuments",
+      session?.user?.email,
+      "documents"
+    );
+    const q: any = query(userDocuments, orderBy("time", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot: any) => {
+      setDocuments(snapshot.docs.map((doc: any) => doc.data()));
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  console.log("documents", documents);
+
   return (
     <section className="my-5 bg-white pb-3">
       <div className="max-w-3xl mx-auto px-3">
@@ -21,12 +44,17 @@ function Douments() {
         </div>
         {/*  */}
         <div className="mt-6">
-          <Document />
-          <Document />
-          <Document />
-          <Document />
-          <Document />
-          <Document />
+          {documents.map(
+            (data: any, index) => (
+              console.log("index", index, data.fileName),
+              (
+                <Document
+                  time={new Date(data?.time?.toDate()).toDateString()}
+                  fileName={data?.fileName}
+                />
+              )
+            )
+          )}
         </div>
       </div>
     </section>

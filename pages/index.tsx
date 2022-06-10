@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Header from "../components/Header";
@@ -9,14 +9,14 @@ import CreateDocModal from "../components/CreateDocModal";
 import { getSession, useSession } from "next-auth/react";
 import Login from "../components/Login";
 
+// firebase
+
 const Home: NextPage = () => {
   const [isModalopen, setisModalOpen] = useState<boolean>(false);
   const handleOpenModal = () => setisModalOpen(true);
   const { data: session } = useSession();
 
   if (!session) return <Login />;
-
-  // console.log("session", session);
 
   return (
     <div>
