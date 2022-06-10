@@ -1,11 +1,16 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Header from "../components/Header";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Douments from "../components/Douments";
+import CreateDocModal from "../components/CreateDocModal";
 
 const Home: NextPage = () => {
+  const [isModalopen, setisModalOpen] = useState<boolean>(false);
+  const handleOpenModal = () => setisModalOpen(true);
+
   return (
     <div>
       <Head>
@@ -17,6 +22,11 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
+
+      <CreateDocModal
+        isOpen={isModalopen}
+        handleClose={() => setisModalOpen(false)}
+      />
 
       <div className="w-full bg-gray-100 py-4">
         {/* wapper */}
@@ -30,7 +40,10 @@ const Home: NextPage = () => {
             </IconButton>
           </div>
 
-          <div className="w-32 h-40 bg-white flex items-center justify-center cursor-pointer select-none rounded-[5px] border hover:border-blue-400">
+          <div
+            className="w-32 h-40 bg-white flex items-center justify-center cursor-pointer select-none rounded-[5px] border hover:border-blue-400"
+            onClick={handleOpenModal}
+          >
             <img
               src="https://ssl.gstatic.com/docs/templates/thumbnails/docs-blank-googlecolors.png"
               alt="plus-icon"

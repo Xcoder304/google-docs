@@ -6,7 +6,7 @@ import Document from "./Document";
 
 function Douments() {
   return (
-    <div className="my-5 bg-white">
+    <section className="my-5 bg-white pb-3">
       <div className="max-w-3xl mx-auto">
         {/*  */}
         <div className="w-full flex item-center justify-between">
@@ -22,9 +22,14 @@ function Douments() {
         {/*  */}
         <div className="mt-6">
           <Document />
+          <Document />
+          <Document />
+          <Document />
+          <Document />
+          <Document />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
