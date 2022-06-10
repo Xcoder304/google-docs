@@ -16,7 +16,6 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "95%",
     bgcolor: "background.paper",
     boxShadow: 14,
     p: 4,
@@ -36,7 +35,7 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
         }}
       >
         <Fade in={isOpen}>
-          <Box sx={style} className="rounded-md">
+          <Box sx={style} className="rounded-md w-[95%] md:w-[400px]">
             <input
               type="text"
               placeholder="Enter File Name"

@@ -8,15 +8,20 @@ import Douments from "../components/Douments";
 import CreateDocModal from "../components/CreateDocModal";
 import { useSession } from "next-auth/react";
 import Login from "../components/Login";
+import { ContextVal } from "../context/AppContext";
 
 const Home: NextPage = () => {
   const [isModalopen, setisModalOpen] = useState<boolean>(false);
   const handleOpenModal = () => setisModalOpen(true);
   const { data: session } = useSession();
+  const [{ user }, dispatch] = ContextVal();
+
+  console.log("user", user);
 
   // if (!session) return <Login />;
 
   console.log("session", session);
+  console;
 
   return (
     <div>
