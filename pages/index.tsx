@@ -1,27 +1,22 @@
 import { useState } from "react";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Header from "../components/Header";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Douments from "../components/Douments";
 import CreateDocModal from "../components/CreateDocModal";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Login from "../components/Login";
-import { ContextVal } from "../context/AppContext";
 
 const Home: NextPage = () => {
   const [isModalopen, setisModalOpen] = useState<boolean>(false);
   const handleOpenModal = () => setisModalOpen(true);
   const { data: session } = useSession();
-  const [{ user }, dispatch] = ContextVal();
 
-  console.log("user", user);
+  if (!session) return <Login />;
 
-  // if (!session) return <Login />;
-
-  console.log("session", session);
-  console;
+  // console.log("session", session);
 
   return (
     <div>
@@ -75,3 +70,10 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  return {
+    props: { session },
+  };
+};
