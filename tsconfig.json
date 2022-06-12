@@ -22,7 +22,8 @@
     "getdoc.ts",
     "components/CreateDocModal.jsx",
     "components/Douments.jsx",
-    "components/TextEditor.jsx"
+    "components/TextEditor.jsx",
+    "pages/doc/[id].js"
   ],
   "exclude": ["node_modules"]
 }
