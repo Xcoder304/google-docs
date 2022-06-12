@@ -6,19 +6,23 @@ import Document from "./Document";
 import { useSession } from "next-auth/react";
 import { db } from "../firebase";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Douments() {
   const { data: session } = useSession();
   const [documents, setDocuments] = useState<any[]>([]);
+  const [loading, setloading] = useState<boolean>(false);
+  const [sortDocs, setSortDoc] = useState<boolean>(true);
 
-  useLayoutEffect(() => {
+  const fetchData = (orderVal: string) => {
+    setloading(true);
     const userDocuments = collection(
       db,
       "UserDocuments",
       session?.user?.email,
       "documents"
     );
-    const q: any = query(userDocuments, orderBy("time", "desc"));
+    const q: any = query(userDocuments, orderBy("time", orderVal));
     const unsubscribe = onSnapshot(q, (snapshot: any) => {
       setDocuments(
         snapshot.docs.map((doc: any) => ({
@@ -26,10 +30,26 @@ function Douments() {
           data: doc.data(),
         }))
       );
+      setloading(false);
     });
+  };
 
-    return () => unsubscribe();
+  useLayoutEffect(() => {
+    fetchData("desc");
+
+    return () => fetchData("desc");
   }, []);
+
+  const SORT_DOCS = () => {
+    setSortDoc(!sortDocs);
+    if (sortDocs) {
+      fetchData("desc");
+    } else {
+      fetchData("asc");
+    }
+  };
+
+  console.log(sortDocs);
 
   return (
     <section className="my-5 bg-white pb-3">
@@ -39,7 +59,7 @@ function Douments() {
           <span className="text-googleTxt_light_2 text-base capitalize font-medium select-none">
             your recent documents
           </span>
-          <Tooltip title="Sort">
+          <Tooltip title="Sort" onClick={SORT_DOCS}>
             <IconButton size="medium" className="bg-slate-100">
               <SortByAlphaIcon className="text-2xl text-gray-500" />
             </IconButton>
@@ -47,16 +67,31 @@ function Douments() {
         </div>
         {/*  */}
         <div className="mt-6">
-          {documents.map(({ id, data: { time, fileName } }, index) => {
-            return (
-              <Document
-                key={index}
-                id={id}
-                time={new Date(time?.toDate()).toDateString()}
-                fileName={fileName}
-              />
-            );
-          })}
+          {loading ? (
+            <div className="flex items-center justify-center mt-7">
+              <CircularProgress />
+            </div>
+          ) : documents.length == 0 ? (
+            <div className="text-center">
+              <h3 className="font-medium text-googleTxt_light_2 select-none text-xl">
+                No text documents yet
+              </h3>
+              <p className="text-gray-400 font-normal select-none text-base">
+                Create a new document to get started
+              </p>
+            </div>
+          ) : (
+            documents.map(({ id, data: { time, fileName } }, index) => {
+              return (
+                <Document
+                  key={index}
+                  id={id}
+                  time={new Date(time?.toDate()).toDateString()}
+                  fileName={fileName}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </section>

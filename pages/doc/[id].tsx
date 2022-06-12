@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import MenuComponet from "@mui/material/Menu";
@@ -19,6 +19,7 @@ import { GetServerSideProps } from "next";
 import TextEditor from "../../components/TextEditor";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TimeAgo from "react-timeago";
 
 function Doc({ documentData }: any) {
@@ -36,7 +37,15 @@ function Doc({ documentData }: any) {
   if (!session) return <Login />;
 
   return (
-    <div>
+    <div className="relative">
+      <div className="absolute top-36 left-6 z-20">
+        <div
+          className="w-9 h-9 rounded-full cursor-pointer bg-blue-600 flex items-center justify-center hover:opacity-70 transition-all duration-150 ease-out"
+          onClick={() => router.push("/")}
+        >
+          <ArrowBackIcon className="text-white text-xl" />
+        </div>
+      </div>
       <header className="w-full px-2 py-2 border-b flex items-center justify-between">
         <Head>
           <title>{documentData?.fileName} - Google Docs</title>

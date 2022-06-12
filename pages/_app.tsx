@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
     });
-  });
+  }, [router]);
 
   return (
     <SessionProvider session={session}>
@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         waitingTime={300}
         onLoaderFinished={() => setProgress(0)}
       />
+
       <Head>
         <link
           rel="icon"

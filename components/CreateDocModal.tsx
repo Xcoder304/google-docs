@@ -8,6 +8,7 @@ import { serverTimestamp, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
 import { RandomDocID, getRandomID } from "../utils/CreateRandomId";
+import { useRouter } from "next/router";
 
 interface Props {
   isOpen: boolean;
@@ -17,6 +18,7 @@ interface Props {
 function CreateDocModal({ isOpen, handleClose }: Props) {
   const [fileName, setFileName] = useState<string>("");
   const { data: session } = useSession();
+  const router = useRouter();
 
   const style = {
     position: "absolute" as "absolute",
@@ -43,7 +45,9 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
         id: id,
       }
     );
+
     setFileName("");
+    router.push(`/doc/${docid}`);
   };
 
   return (
