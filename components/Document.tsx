@@ -9,9 +9,10 @@ interface Props {
   time: string;
   fileName: string;
   id: string | any;
+  deleteDoc: (id: string | number | any) => void;
 }
 
-function Document({ time, fileName, id }: Props) {
+function Document({ time, fileName, id, deleteDoc }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,6 +20,7 @@ function Document({ time, fileName, id }: Props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    deleteDoc(id);
   };
   const router = useRouter();
 

@@ -5,7 +5,14 @@ import Tooltip from "@mui/material/Tooltip";
 import Document from "./Document";
 import { useSession } from "next-auth/react";
 import { db } from "../firebase";
-import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function Douments() {
@@ -49,7 +56,11 @@ function Douments() {
     }
   };
 
-  console.log(sortDocs);
+  const DELECT_DOC = async (id: string | number | any) => {
+    await deleteDoc(
+      doc(db, "UserDocuments", session?.user?.email, "documents", id)
+    );
+  };
 
   return (
     <section className="my-5 bg-white pb-3">
@@ -88,6 +99,7 @@ function Douments() {
                   id={id}
                   time={new Date(time?.toDate()).toDateString()}
                   fileName={fileName}
+                  deleteDoc={DELECT_DOC}
                 />
               );
             })
