@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import MenuComponet from "@mui/material/Menu";
@@ -15,17 +15,16 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { getSession, useSession } from "next-auth/react";
 import Login from "../../components/Login";
-import { GetServerSideProps } from "next";
 import TextEditor from "../../components/TextEditor";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TimeAgo from "react-timeago";
 
-function Doc({ documentData }: any) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+function Doc({ documentData }) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -191,7 +190,7 @@ function Doc({ documentData }: any) {
 
 export default Doc;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const session = await getSession(context);
   const docRef = doc(
     db,
