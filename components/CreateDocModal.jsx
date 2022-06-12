@@ -10,18 +10,13 @@ import { useSession } from "next-auth/react";
 import { RandomDocID, getRandomID } from "../utils/CreateRandomId";
 import { useRouter } from "next/router";
 
-interface Props {
-  isOpen: boolean;
-  handleClose: () => void;
-}
-
-function CreateDocModal({ isOpen, handleClose }: Props) {
-  const [fileName, setFileName] = useState<string>("");
+function CreateDocModal({ isOpen, handleClose }) {
+  const [fileName, setFileName] = useState < string > "";
   const { data: session } = useSession();
   const router = useRouter();
 
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -30,7 +25,7 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
     p: 4,
   };
 
-  const CREATE_FILE = async (e: React.FormEvent<HTMLFormElement>) => {
+  const CREATE_FILE = async (e) => {
     e.preventDefault();
     const docid = RandomDocID();
     const id = getRandomID();

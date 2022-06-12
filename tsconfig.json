@@ -15,6 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "getdoc.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "getdoc.ts",
+    "components/CreateDocModal.jsx"
+  ],
   "exclude": ["node_modules"]
 }
