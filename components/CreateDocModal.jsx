@@ -11,7 +11,7 @@ import { RandomDocID, getRandomID } from "../utils/CreateRandomId";
 import { useRouter } from "next/router";
 
 function CreateDocModal({ isOpen, handleClose }) {
-  const [fileName, setFileName] = useState < string > "";
+  const [fileName, setFileName] = useState("");
   const { data: session } = useSession();
   const router = useRouter();
 
