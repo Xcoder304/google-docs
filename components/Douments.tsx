@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import Tooltip from "@mui/material/Tooltip";
@@ -11,7 +11,7 @@ function Douments() {
   const { data: session } = useSession();
   const [documents, setDocuments] = useState<any[]>([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const userDocuments = collection(
       db,
       "UserDocuments",

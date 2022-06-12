@@ -17,10 +17,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
     });
-    router.events.on("routeChangeError", () => {
-      setProgress(20);
-      alert("please try again");
-    });
   });
 
   return (

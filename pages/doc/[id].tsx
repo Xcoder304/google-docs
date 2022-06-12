@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import MenuComponet from "@mui/material/Menu";
@@ -19,6 +19,7 @@ import { GetServerSideProps } from "next";
 import TextEditor from "../../components/TextEditor";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import TimeAgo from "react-timeago";
 
 function Doc({ documentData }: any) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -85,7 +86,8 @@ function Doc({ documentData }: any) {
 
               <div>
                 <p className="text-gray-400 font-normal underline italic select-none">
-                  create at 2 day ago
+                  create at{" "}
+                  <TimeAgo date={new Date(documentData.time.seconds * 1000)} />
                 </p>
               </div>
             </div>
