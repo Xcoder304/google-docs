@@ -17,11 +17,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 function Douments() {
   const { data: session } = useSession();
-  const [documents, setDocuments] = useState<any[]>([]);
-  const [loading, setloading] = useState<boolean>(false);
-  const [sortDocs, setSortDoc] = useState<boolean>(true);
+  const [documents, setDocuments] = useState([]);
+  const [loading, setloading] = useState(false);
+  const [sortDocs, setSortDoc] = useState(true);
 
-  const fetchData = (orderVal: string) => {
+  const fetchData = (orderVal) => {
     setloading(true);
     const userDocuments = collection(
       db,
@@ -29,10 +29,10 @@ function Douments() {
       session?.user?.email,
       "documents"
     );
-    const q: any = query(userDocuments, orderBy("time", orderVal));
-    const unsubscribe = onSnapshot(q, (snapshot: any) => {
+    const q = query(userDocuments, orderBy("time", orderVal));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       setDocuments(
-        snapshot.docs.map((doc: any) => ({
+        snapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
         }))
@@ -56,7 +56,7 @@ function Douments() {
     }
   };
 
-  const DELECT_DOC = async (id: string | number | any) => {
+  const DELECT_DOC = async (id) => {
     await deleteDoc(
       doc(db, "UserDocuments", session?.user?.email, "documents", id)
     );

@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "getdoc.ts",
-    "components/CreateDocModal.jsx"
+    "components/CreateDocModal.jsx",
+    "components/Douments.jsx"
   ],
   "exclude": ["node_modules"]
 }
