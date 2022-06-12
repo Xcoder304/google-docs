@@ -17,10 +17,22 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
     });
+    router.events.on("routeChangeError", () => {
+      setProgress(20);
+      alert("please try again");
+    });
   });
 
   return (
     <SessionProvider session={session}>
+      <LoadingBar
+        color="#1a73e8"
+        height={3}
+        progress={progress}
+        shadow={false}
+        waitingTime={300}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <Head>
         <link
           rel="icon"

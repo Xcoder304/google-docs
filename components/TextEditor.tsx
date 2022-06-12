@@ -39,12 +39,6 @@ function TextEditor() {
   }, []);
 
   useEffect(() => {
-    router.events.on("beforeHistoryChange", () => {
-      alert("Are you sure you want to leave this page?");
-    });
-  }, [router]);
-
-  useEffect(() => {
     if (snapshot?.editorData) {
       setEditorState(
         EditorState.createWithContent(convertFromRaw(snapshot?.editorData))
