@@ -59,7 +59,7 @@ function TextEditor() {
   };
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen pb-20">
+    <div className="bg-[#F8F9FA] min-h-screen pb-20 px-4">
       <Editor
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}
@@ -82,6 +82,31 @@ function TextEditor() {
             "history",
           ],
 
+          inline: {
+            inDropdown: false,
+            className: undefined,
+            component: undefined,
+            dropdownClassName: undefined,
+            options: [
+              "bold",
+              "italic",
+              "underline",
+              "strikethrough",
+              "monospace",
+              "superscript",
+              "subscript",
+            ],
+            bold: {
+              icon: "/bold.png",
+              className: undefined,
+            },
+            italic: { icon: "/italic.png", className: undefined },
+            underline: { icon: "/underline.png", className: undefined },
+            strikethrough: { icon: "/strikethrough.png", className: undefined },
+            monospace: { icon: "/monospace.png", className: undefined },
+            superscript: { icon: "/superscript.png", className: undefined },
+            subscript: { icon: "/subscript.png", className: undefined },
+          },
           blockType: {
             inDropdown: true,
             options: [
@@ -100,8 +125,23 @@ function TextEditor() {
             dropdownClassName: undefined,
           },
           fontSize: {
-            icon: "font",
+            inDropdown: true,
+            icon: "/font-adjustment.png",
             options: [8, 9, 10, 11, 12, 14, 16, 18, 24, 30, 36, 48, 60, 72, 96],
+            className: undefined,
+            component: undefined,
+            dropdownClassName: undefined,
+          },
+          fontFamily: {
+            inDropdown: true,
+            options: [
+              "Arial",
+              "Georgia",
+              "Impact",
+              "Tahoma",
+              "Times New Roman",
+              "Verdana",
+            ],
             className: undefined,
             component: undefined,
             dropdownClassName: undefined,

@@ -30,9 +30,8 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
     p: 4,
   };
 
-  const CREATE_FILE = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const CREATE_FILE = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const docid = RandomDocID();
     const id = getRandomID();
 
@@ -68,35 +67,38 @@ function CreateDocModal({ isOpen, handleClose }: Props) {
             sx={style}
             className="rounded-md w-[95%] md:w-[400px] outline-none"
           >
-            <input
-              type="text"
-              placeholder="Enter File Name"
-              className="w-full px-3 py-3 bg-gray-100 rounded-md focus-within:bg-white focus-within:shadow-md transition-all duration-200 ease-out outline-none border focus-within:border-white"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
-            />
+            <form onSubmit={CREATE_FILE}>
+              <input
+                type="text"
+                placeholder="Enter File Name"
+                className="w-full px-3 py-3 bg-gray-100 rounded-md focus-within:bg-white focus-within:shadow-md transition-all duration-200 ease-out outline-none border focus-within:border-white"
+                value={fileName}
+                onChange={(e) => setFileName(e.target.value)}
+              />
 
-            <div className="flex items-end justify-end mt-3">
-              <div className="flex items-center space-x-2 pt-2">
-                <Button
-                  variant="outlined"
-                  size="medium"
-                  color="primary"
-                  onClick={handleClose}
-                  className="!px-5 !py-2"
-                >
-                  Close
-                </Button>
-                <Button
-                  variant="contained"
-                  size="medium"
-                  className="!bg-[#3888e4] hover:!bg-[#1565C0] focus:!bg-[#1565C0] !px-5 !py-2 !capitalize"
-                  onClick={CREATE_FILE}
-                >
-                  Create
-                </Button>
+              <div className="flex items-end justify-end mt-3">
+                <div className="flex items-center space-x-2 pt-2">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    size="medium"
+                    color="primary"
+                    onClick={handleClose}
+                    className="!px-5 !py-2"
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="medium"
+                    className="!bg-[#3888e4] hover:!bg-[#1565C0] focus:!bg-[#1565C0] !px-5 !py-2 !capitalize"
+                  >
+                    Create
+                  </Button>
+                </div>
               </div>
-            </div>
+            </form>
           </Box>
         </Fade>
       </Modal>
