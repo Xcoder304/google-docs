@@ -21,7 +21,8 @@
     "**/*.tsx",
     "getdoc.ts",
     "components/CreateDocModal.jsx",
-    "components/Douments.jsx"
+    "components/Douments.jsx",
+    "components/TextEditor.jsx"
   ],
   "exclude": ["node_modules"]
 }

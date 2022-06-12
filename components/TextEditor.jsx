@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
-import { EditorState } from "draft-js";
-import { convertFromRaw, convertToRaw } from "draft-js";
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
@@ -46,7 +45,7 @@ function TextEditor() {
     }
   }, [snapshot]);
 
-  const onEditorStateChange = async (editorState: any) => {
+  const onEditorStateChange = async (editorState) => {
     setEditorState(editorState);
 
     await setDoc(
