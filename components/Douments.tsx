@@ -20,13 +20,16 @@ function Douments() {
     );
     const q: any = query(userDocuments, orderBy("time", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot: any) => {
-      setDocuments(snapshot.docs.map((doc: any) => doc.data()));
+      setDocuments(
+        snapshot.docs.map((doc: any) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
     });
 
     return () => unsubscribe();
   }, []);
-
-  console.log("documents", documents);
 
   return (
     <section className="my-5 bg-white pb-3">
@@ -44,17 +47,16 @@ function Douments() {
         </div>
         {/*  */}
         <div className="mt-6">
-          {documents.map(
-            (data: any, index) => (
-              console.log("index", index, data.fileName),
-              (
-                <Document
-                  time={new Date(data?.time?.toDate()).toDateString()}
-                  fileName={data?.fileName}
-                />
-              )
-            )
-          )}
+          {documents.map(({ id, data: { time, fileName } }, index) => {
+            return (
+              <Document
+                key={index}
+                id={id}
+                time={new Date(time?.toDate()).toDateString()}
+                fileName={fileName}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

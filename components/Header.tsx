@@ -11,6 +11,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -21,6 +22,7 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const router = useRouter();
 
   const { data: session } = useSession();
 
@@ -31,7 +33,10 @@ function Header() {
           <Menu className="text-2xl" />
         </IconButton>
 
-        <div className="flex items-center space-x-2 cursor-pointer select-none">
+        <div
+          className="flex items-center space-x-2 cursor-pointer select-none"
+          onClick={() => router.push("/")}
+        >
           <img
             src="https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png"
             alt="google-docs-icon"
