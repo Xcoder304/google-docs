@@ -21,7 +21,27 @@ function Douments() {
   const [loading, setloading] = useState(false);
   const [sortDocs, setSortDoc] = useState(true);
 
-  const fetchData = (orderVal) => {
+  // const fetchData = (orderVal) => {
+  //   setloading(true);
+  //   const userDocuments = collection(
+  //     db,
+  //     "UserDocuments",
+  //     session?.user?.email,
+  //     "documents"
+  //   );
+  //   const q = query(userDocuments, orderBy("time", orderVal));
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     setDocuments(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }))
+  //     );
+  //     setloading(false);
+  //   });
+  // };
+
+  useLayoutEffect(() => {
     setloading(true);
     const userDocuments = collection(
       db,
@@ -29,7 +49,7 @@ function Douments() {
       session?.user?.email,
       "documents"
     );
-    const q = query(userDocuments, orderBy("time", orderVal));
+    const q = query(userDocuments, orderBy("time", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setDocuments(
         snapshot.docs.map((doc) => ({
@@ -39,22 +59,20 @@ function Douments() {
       );
       setloading(false);
     });
-  };
 
-  useLayoutEffect(() => {
-    fetchData("desc");
-
-    return () => fetchData("desc");
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const SORT_DOCS = () => {
-    setSortDoc(!sortDocs);
-    if (sortDocs) {
-      fetchData("desc");
-    } else {
-      fetchData("asc");
-    }
-  };
+  // const SORT_DOCS = () => {
+  //   setSortDoc(!sortDocs);
+  //   if (sortDocs) {
+  //     fetchData("desc");
+  //   } else {
+  //     fetchData("asc");
+  //   }
+  // };
 
   const DELECT_DOC = async (id) => {
     await deleteDoc(
@@ -70,7 +88,7 @@ function Douments() {
           <span className="text-googleTxt_light_2 text-base capitalize font-medium select-none">
             your recent documents
           </span>
-          <Tooltip title="Sort" onClick={SORT_DOCS}>
+          <Tooltip title="Sort">
             <IconButton size="medium" className="bg-slate-100">
               <SortByAlphaIcon className="text-2xl text-gray-500" />
             </IconButton>
